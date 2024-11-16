@@ -8,6 +8,7 @@ import Architecture from '../components/Architecture';
 function Homepage() {
     const sectionsRef = useRef({}); // A dictionary to store refs for each section
     const [activeSection, setActiveSection] = useState('Highlights');
+    const [scrollingUp, setScrollingUp] = useState(false);
 
     const sections = ['Highlights', 'Architecture', 'Detection', 'Stats'];
 
@@ -29,7 +30,7 @@ function Homepage() {
                     }
                 });
             },
-            { threshold: 0.6 } // Trigger when 60% of the section is visible
+            { threshold: 0.4 } // Trigger when 60% of the section is visible
         );
 
         Object.values(sectionsRef.current).forEach((section) => {
@@ -43,33 +44,64 @@ function Homepage() {
         };
     }, []);
 
+    // Scroll event listener to track scroll direction
+    useEffect(() => {
+        let lastScrollY = window.scrollY;
+        
+        const handleScroll = () => {
+            if (window.scrollY > lastScrollY) {
+                setScrollingUp(false); // Scrolling Down
+            } else {
+                setScrollingUp(true); // Scrolling Up
+            }
+            lastScrollY = window.scrollY;
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
         <>
-            <section className="fixed top-0 left-0 right-0 z-50 bg-black">
-                <div className="flex items-center justify-between pl-6 pr-6 navbar-container">
-                    {/* Logo Section */}
-                    <div className="logo-wrapper">
-                        <img src="./img/logo.png" className="m-4 ml-0 h-14" alt="Logo" />
-                    </div>
-                    {/* Action Button Section */}
-                    <div className="action-wrapper pt-[18px]">
-                        <div className="flex items-center justify-center gap-4">
-                            {['XRAY', 'CT Inprogress', 'MRI Inprogress'].map((text, index) => (
-                                <div
-                                    key={index}
-                                    className="relative inline-block p-[1px] rounded-full bg-gradient-to-r from-red-500 to-blue-500"
-                                >
-                                    <button className="relative px-5 py-1 text-sm font-bold tracking-wider text-white bg-black rounded-full">
-                                        {text}
-                                    </button>
-                                </div>
-                            ))}
+            <div>
+                <section className="fixed top-0 left-0 right-0 z-[100] bg-black">
+                    <div className="flex items-center justify-between pl-6 pr-6 navbar-container">
+                        {/* Logo Section */}
+                        <div className="logo-wrapper">
+                            <img src="./img/logo.png" className="m-4 ml-0 h-14" alt="Logo" />
+                        </div>
+                        {/* Action Button Section */}
+                        <div className="action-wrapper pt-[18px]">
+                            <div className="flex items-center justify-center gap-4">
+                            {['XRAY', 'CT Inprogress', 'MRI Inprogress'].map((text, index) => {
+    // Check if the text includes "Inprogress"
+    const isInprogress = text.includes('Inprogress');
+    const mainText = isInprogress ? text.replace(' Inprogress', '') : text;
+
+    return (
+        <div
+            key={index}
+            className="relative inline-block p-[1px] rounded-full bg-gradient-to-r from-red-500 to-blue-500"
+        >
+            <button className="relative px-5 py-1 text-sm font-bold tracking-wider text-center text-gray-400 bg-black rounded-full" disabled>
+                {mainText}
+                {isInprogress && (
+                    <span className="block text-xs font-normal text-gray-400">
+                        (In-progress)
+                    </span>
+                )}
+            </button>
+        </div>
+    );
+})}
+
+
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <div className="pl-6 pr-6 bg-black pt-36 hero-section">
+                <div className="pl-6 pr-6 bg-black pt-36 hero-section">
                     <div className="flex flex-col items-center gap-12 mx-auto lg:flex-row">
                         {/* Text Content - Left Side */}
                         <div className="flex-1">
@@ -100,11 +132,13 @@ function Homepage() {
                         </div>
                     </div>
                 </div>
+            </div>
 
-
-                <div className="flex">
+            <div className="flex">
                 {/* Sidebar */}
-                <div className="fixed w-64 h-screen bg-black mt-14">
+                <div 
+                    className="fixed left-0 z-20 w-64 transform -translate-y-1/2 bg-black top-1/2"
+                >
                     <Sidenavbar
                         activeSection={activeSection}
                         setActiveSection={scrollToSection}

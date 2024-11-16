@@ -149,6 +149,12 @@ background-color: black;
 
 
 
+.hero-section {
+  z-index: 99; /* Ensure it appears above lower layers */
+  position: relative;
+
+}
+
 
 
 

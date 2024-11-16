@@ -39,6 +39,15 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      keyframes: {
+        blink: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0' },
+        },
+      },
+      animation: {
+        blink: 'blink 1s infinite', 
+      },
       borderRadius: {
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,

@@ -45,7 +45,7 @@ export default function PathologyRadarChart() {
                     {/* Radar chart section */}
                     <div className=" max-h-[400px]">
                         <RadarChart
-                            outerRadius={150}
+                            outerRadius={200}
                             width={500}
                             height={500}
                             data={radarData}

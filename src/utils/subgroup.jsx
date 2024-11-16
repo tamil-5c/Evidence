@@ -4,22 +4,10 @@ import { RadialBarChart, RadialBar } from 'recharts';
 const AUCRadialCharts = () => {
   const ageData = [
     {
-      name: "75+",
-      category: "75+",
-      auc: 0.885,
-      fill: "#b5189e"
-    },
-    {
-      name: "60-75",
-      category: "60-75",
-      auc: 0.932,
-      fill: "#560bad"
-    },
-    {
-      name: "40-60",
-      category: "40-60",
-      auc: 0.972,
-      fill: "#3f37c9"
+      name: "Under 18",
+      category: "Under 18",
+      auc: 0.903,
+      fill: "#4361ee"
     },
     {
       name: "18-40",
@@ -28,12 +16,24 @@ const AUCRadialCharts = () => {
       fill: "#4895ef"
     },
     {
-      name: "Under 18",
-      category: "Under 18",
-      auc: 0.903,
-      fill: "#4361ee"
+      name: "40-60",
+      category: "40-60",
+      auc: 0.972,
+      fill: "#3f37c9"
+    },
+    {
+      name: "60-75",
+      category: "60-75",
+      auc: 0.932,
+      fill: "#560bad"
+    },
+    {
+      name: "75+",
+      category: "75+",
+      auc: 0.885,
+      fill: "#b5189e"
     }
-  ].reverse();
+  ];  // Removed the .reverse() to maintain proper order
 
   const genderData = [
     {
@@ -93,7 +93,6 @@ const AUCRadialCharts = () => {
   ];
 
   const RadialChart = ({ data, title }) => {
-    // Fixed dimensions for all charts
     const chartWidth = 280;
     const chartHeight = 280;
     const legendHeight = 160;
@@ -110,14 +109,14 @@ const AUCRadialCharts = () => {
             outerRadius="90%"
             barSize={20}
             data={data}
-            startAngle={0}
-            endAngle={360}
+            startAngle={90}
+            endAngle={-270}
           >
             <RadialBar
               label={{
                 position: 'insideStart',
                 fill: '#fff',
-                formatter: (value) => (value * 100).toFixed(1)
+                formatter: (value) => value.toFixed(3)
               }}
               background={{ fill: '#333' }}
               dataKey="auc"
