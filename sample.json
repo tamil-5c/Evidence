@@ -1,0 +1,23 @@
+[{
+"pathology_name":"lung mass",
+"government hospital":0.99,
+"small and medium private hospital":0.88,
+"diagnostic center":0.77,
+"large private hospital":0.78
+},
+{
+"pathology_name":"lobe collapse",
+"government hospital":0.98,
+"small and medium private hospital":0.87,
+"diagnostic center":0.76,
+"large private hospital":0.75
+},
+{
+    "pathology_name":"liver injury",
+    "government hospital":0.97,
+    "small and medium private hospital":0.86,
+    "diagnostic center":0.75,
+    "large private hospital":0.74
+    }
+    
+]
