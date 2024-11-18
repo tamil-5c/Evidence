@@ -21,7 +21,7 @@ function Cards() {
   ];
 
   return (
-    <div className="w-full p-6 bg-black md:p-12">
+    <div className="w-full p-6 bg-black sm:pt-6 sm:pl-3 sm:pr-11">
       <div className="grid max-w-6xl grid-cols-2 gap-6 mx-auto md:grid-cols-2 sm:gap-3 sm:grid-cols-1">
         {features.map((feature, index) => (
           <div key={index} className="relative h-full group sm:w-full" >

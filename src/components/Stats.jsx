@@ -40,9 +40,9 @@ const Stats = () => {
   return (
     <div className="text-white">
       {/* Stats Section Header with Buttons */}
-      <div className="sticky top-0 z-10 flex items-center justify-center p-4 mb-6 bg-black sm:p-4 sm:justify-between sm:w-full">
+      <div className="sticky top-0 z-10 flex items-center justify-center p-4 mb-6 bg-black sm:contents sm:w-full">
         {/* <h2 className="text-2xl font-bold">Statistics</h2> */}
-        <div className="flex gap-12 sm:gap-2"> {/* Increased gap from 8 to 12 for more spacing */}
+        <div className="flex gap-12 sm:gap-2 sm:flex-col sm:pl-4 sm:pr-12 "> {/* Increased gap from 8 to 12 for more spacing */}
           {statsSections.map((section) => (
             <button
               key={section}

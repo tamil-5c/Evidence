@@ -154,7 +154,7 @@ function Homepage() {
                     </div>
                 </section>
 
-                <div className="pl-6 pr-6 bg-black pt-36 hero-section">
+                <div className="pl-6 pr-6 bg-black pt-36 hero-section sm:pr-3 sm:pl-3">
                     <div className="flex items-center gap-12 mx-auto sm:flex-col lg:flex-row">
                         {/* Text Content - Left Side */}
                         <div className="flex-1">

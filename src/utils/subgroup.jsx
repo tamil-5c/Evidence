@@ -149,7 +149,7 @@ const AUCRadialCharts = () => {
   };
 
   return (
-    <div className="grid grid-cols-4 gap-6 p-8 md:grid-cols-2 sm:grid-cols-1">
+    <div className="grid grid-cols-4 gap-6 p-8 sm:grid-cols-1">
       <div className="w-full aspect-square">
         <RadialChart data={ageData} title="Age Group" />
       </div>

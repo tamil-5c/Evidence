@@ -20,7 +20,7 @@ const App = () => {
       >
         <Masonry className=' sm:flex'>
           {images.map((image, index) => (
-            <div key={index} className="p-4 pr-6 mb-4 sm:w-full sm:pr-4">
+            <div key={index} className="p-4 pr-6 mb-4 sm:w-full sm:pr-11 sm:pl-3 sm:p-0">
               <img
                 src={image.src}
                 alt={image.title}
