@@ -99,7 +99,7 @@ const AUCRadialCharts = () => {
     
     return (
       <div className="flex flex-col items-center w-full text-white bg-black">
-        <div className="w-full" style={{ height: `${chartHeight}px` }}>
+        <div className="w-full sm:contents" style={{ height: `${chartHeight}px` }}>
           <RadialBarChart
             width={chartWidth}
             height={chartHeight}
@@ -149,7 +149,7 @@ const AUCRadialCharts = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-6 p-8 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-4 gap-6 p-8 md:grid-cols-2 sm:grid-cols-1">
       <div className="w-full aspect-square">
         <RadialChart data={ageData} title="Age Group" />
       </div>

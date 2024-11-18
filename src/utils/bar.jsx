@@ -22,16 +22,16 @@ const PathologyChart = () => {
     <Card className="w-full bg-transparent border-none">
       <CardHeader />
       <CardContent>
-        <div className="h-[2000px] w-full">
+        <div className="w-full overflow-x-auto">
           <BarChart
             data={chartData}
             layout="vertical"
-            width={800}
-            height={1900}
+            width={window.innerWidth > 768 ? 800 : 360} // Adjust width dynamically
+            height={window.innerWidth > 768 ? 1900 : chartData.length * 60} // Adjust height for mobile
             margin={{
               top: 20,
-              right: 80,
-              left: 220,
+              right: window.innerWidth > 768 ? 80 : 20, // Adjust right margin
+              left: window.innerWidth > 768 ? 220 : 60, // Adjust left margin
               bottom: 20,
             }}
           >
@@ -44,13 +44,13 @@ const PathologyChart = () => {
               type="number"
               domain={[0.9, 1]}
               tickCount={5}
-              tick={{ fontSize: 12 }}
+              tick={{ fontSize: window.innerWidth > 768 ? 12 : 10 }}
             />
             <YAxis
               dataKey="name"
               type="category"
-              tick={{ fontSize: 12, fill: '#ffffff' }}
-              width={200}
+              tick={{ fontSize: window.innerWidth > 768 ? 12 : 10, fill: '#ffffff' }}
+              width={window.innerWidth > 768 ? 200 : 100}
               interval={0}
             />
             <Tooltip 
@@ -61,7 +61,7 @@ const PathologyChart = () => {
               dataKey="value"
               fill="#1E90FF"
               radius={[0, 4, 4, 0]}
-              barSize={16}
+              barSize={window.innerWidth > 768 ? 16 : 12} // Adjust bar size for mobile
             >
               <LabelList
                 dataKey="value"
@@ -69,7 +69,7 @@ const PathologyChart = () => {
                 formatter={(value) => value.toFixed(2)}
                 style={{ 
                   fill: '#ffffff', 
-                  fontSize: '12px',
+                  fontSize: window.innerWidth > 768 ? '12px' : '10px',
                   fontFamily: 'system-ui'
                 }}
               />

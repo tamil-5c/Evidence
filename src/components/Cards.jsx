@@ -22,15 +22,15 @@ function Cards() {
 
   return (
     <div className="w-full p-6 bg-black md:p-12">
-      <div className="grid max-w-6xl grid-cols-1 gap-6 mx-auto md:grid-cols-2">
+      <div className="grid max-w-6xl grid-cols-2 gap-6 mx-auto md:grid-cols-2 sm:gap-3 sm:grid-cols-1">
         {features.map((feature, index) => (
-          <div key={index} className="relative h-full group">
+          <div key={index} className="relative h-full group sm:w-full" >
             <div className="absolute -inset-0.5 bg-gradient-to-r from-[#FF6B6B] via-[#9381FF] to-[#4DA8FF] rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300 blur"></div>
             <div className="relative flex flex-col h-full min-h-[200px] p-8 transition-all duration-300 rounded-2xl bg-zinc-900">
-              <h3 className="mb-4 text-base font-semibold text-white md:text-xl">
+              <h3 className="mb-4 text-base font-semibold text-white sm:text-lg">
                 {feature.title}
               </h3>
-              <p className="flex-grow text-xs text-zinc-400 md:text-sm">
+              <p className="flex-grow text-xs text-zinc-400 sm:text-sm">
                 {feature.description}
               </p>
             </div>

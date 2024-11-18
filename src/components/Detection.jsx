@@ -18,9 +18,9 @@ const App = () => {
       <ResponsiveMasonry
         columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 4 }}
       >
-        <Masonry>
+        <Masonry className=' sm:flex'>
           {images.map((image, index) => (
-            <div key={index} className="p-4 pr-6 mb-4">
+            <div key={index} className="p-4 pr-6 mb-4 sm:w-full sm:pr-4">
               <img
                 src={image.src}
                 alt={image.title}

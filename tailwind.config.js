@@ -54,6 +54,10 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
     },
+    screens: {
+      'sm': {'max': '639px'},
+      'md':{'min':'700px'}
+      },
   },
   plugins: [require("tailwindcss-animate")],
 }

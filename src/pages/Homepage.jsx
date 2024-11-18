@@ -4,11 +4,18 @@ import Sidenavbar from '../components/Sidenavbar';
 import Stats from '../components/Stats';
 import Detection from '../components/Detection';
 import Architecture from '../components/Architecture';
+import { Menu,X} from 'lucide-react';
 
 function Homepage() {
     const sectionsRef = useRef({}); // A dictionary to store refs for each section
     const [activeSection, setActiveSection] = useState('Highlights');
     const [scrollingUp, setScrollingUp] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
+
 
     const sections = ['Highlights', 'Architecture', 'Detection', 'Stats'];
 
@@ -47,7 +54,7 @@ function Homepage() {
     // Scroll event listener to track scroll direction
     useEffect(() => {
         let lastScrollY = window.scrollY;
-        
+
         const handleScroll = () => {
             if (window.scrollY > lastScrollY) {
                 setScrollingUp(false); // Scrolling Down
@@ -71,38 +78,84 @@ function Homepage() {
                             <img src="./img/logo.png" className="m-4 ml-0 h-14" alt="Logo" />
                         </div>
                         {/* Action Button Section */}
-                        <div className="action-wrapper pt-[18px]">
-                            <div className="flex items-center justify-center gap-4">
-                            {['XRAY', 'CT Inprogress', 'MRI Inprogress'].map((text, index) => {
-    // Check if the text includes "Inprogress"
-    const isInprogress = text.includes('Inprogress');
-    const mainText = isInprogress ? text.replace(' Inprogress', '') : text;
+                        <div className="action-wrapper pt-[18px] sm:pt-0">
+                            <div className="flex items-center justify-center gap-4 sm:hidden">
+                                {['XRAY', 'CT Inprogress', 'MRI Inprogress'].map((text, index) => {
+                                    // Check if the text includes "Inprogress"
+                                    const isInprogress = text.includes('Inprogress');
+                                    const mainText = isInprogress ? text.replace(' Inprogress', '') : text;
 
-    return (
-        <div
-            key={index}
-            className="relative inline-block p-[1px] rounded-full bg-gradient-to-r from-red-500 to-blue-500"
-        >
-            <button className="relative px-5 py-1 text-sm font-bold tracking-wider text-center text-gray-400 bg-black rounded-full" disabled>
-                {mainText}
-                {isInprogress && (
-                    <span className="block text-xs font-normal text-gray-400">
-                        (In-progress)
-                    </span>
-                )}
-            </button>
-        </div>
-    );
-})}
+                                    return (
+                                        <div
+                                            key={index}
+                                            className="relative inline-block p-[1px] rounded-full bg-gradient-to-r from-red-500 to-blue-500"
+                                        >
+                                            <button className="relative px-5 py-1 text-sm font-bold tracking-wider text-center text-gray-400 bg-black rounded-full" disabled>
+                                                {mainText}
+                                                {isInprogress && (
+                                                    <span className="block text-xs font-normal text-gray-400">
+                                                        (In-progress)
+                                                    </span>
+                                                )}
+                                            </button>
+                                        </div>
+                                    );
+                                })}
 
 
                             </div>
+
+                            <div className="relative md:hidden">
+                                {/* Hamburger Button */}
+                                <button
+                                    onClick={toggleMenu}
+                                    className="p-2 text-gray-600 hover:text-gray-800 focus:outline-none"
+                                >
+                                    {isOpen ? (
+                                        <X size={24} className='text-white' />
+                                    ) : (
+                                        <Menu size={24} className='text-white' />
+                                    )}
+                                </button>
+
+                                {/* Menu Content */}
+                                {isOpen && (
+                                    <div className="absolute right-0 z-50 w-64 p-4 mt-2 bg-black rounded-lg shadow-lg">
+                                        <div className="flex flex-col gap-4">
+                                            {['XRAY', 'CT Inprogress', 'MRI Inprogress'].map((text, index) => {
+                                                const isInprogress = text.includes('Inprogress');
+                                                const mainText = isInprogress ? text.replace(' Inprogress', '') : text;
+
+                                                return (
+                                                    <div
+                                                        key={index}
+                                                        className="relative inline-block p-[1px] rounded-full bg-gradient-to-r from-red-500 to-blue-500"
+                                                    >
+                                                        <button
+                                                            className="relative w-full px-5 py-1 text-sm font-bold tracking-wider text-center text-gray-400 bg-black rounded-full"
+                                                            disabled
+                                                        >
+                                                            {mainText}
+                                                            {isInprogress && (
+                                                                <span className="block text-xs font-normal text-gray-400">
+                                                                    (In-progress)
+                                                                </span>
+                                                            )}
+                                                        </button>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
                         </div>
                     </div>
                 </section>
 
                 <div className="pl-6 pr-6 bg-black pt-36 hero-section">
-                    <div className="flex flex-col items-center gap-12 mx-auto lg:flex-row">
+                    <div className="flex items-center gap-12 mx-auto sm:flex-col lg:flex-row">
                         {/* Text Content - Left Side */}
                         <div className="flex-1">
                             <h1 className="mb-4 text-4xl font-semibold leading-tight md:text-5xl lg:text-6xl">
@@ -136,8 +189,8 @@ function Homepage() {
 
             <div className="flex">
                 {/* Sidebar */}
-                <div 
-                    className="fixed left-0 z-20 w-64 transform -translate-y-1/2 bg-black top-1/2"
+                <div
+                    className="fixed left-0 z-20 w-64 transform -translate-y-1/2 bg-black top-1/2 sm:hidden"
                 >
                     <Sidenavbar
                         activeSection={activeSection}
@@ -147,13 +200,13 @@ function Homepage() {
                 </div>
 
                 {/* Main Content */}
-                <div className="flex-1 ml-64">
+                <div className="flex-1 ml-64 sm:ml-0">
                     {sections.map((section) => (
                         <div
                             key={section}
                             data-section={section}
                             ref={(el) => (sectionsRef.current[section] = el)}
-                            className="p-6 mb-28"
+                            className="p-6 mb-28 sm:p-0 sm:mb-10"
                         >
                             {section === 'Highlights' && <Cards />}
                             {section === 'Architecture' && <Architecture />}

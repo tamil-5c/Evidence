@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PolarGrid, Radar, RadarChart, Legend, Tooltip } from "recharts";
 import {
     Card,
     CardContent,
-    CardFooter,
-    CardHeader,
 } from "../components/ui/card";
 import { radarData } from '../constant';
 
@@ -15,7 +13,7 @@ const colors = {
     "Large Private Hospitals": "#4cc9f0"
 };
 
-const CustomTooltip = ({ active, payload, label }) => {
+const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
         return (
             <div className="p-4 bg-black border-none rounded shadow-lg">
@@ -31,23 +29,45 @@ const CustomTooltip = ({ active, payload, label }) => {
     return null;
 };
 
-export default function PathologyRadarChart() {
+const ResponsiveRadarChart = () => {
+    const [dimensions, setDimensions] = useState({
+        width: 500,
+        height: 500,
+        radius: 200
+    });
+
+    useEffect(() => {
+        const updateDimensions = () => {
+            const container = document.getElementById('chart-container');
+            if (container) {
+                const width = container.clientWidth;
+                const isMobile = window.innerWidth < 768;
+                const chartSize = isMobile ? Math.min(width - 40, 350) : Math.min(width / 2 - 40, 500);
+                const radius = chartSize / 2 - 20;
+
+                setDimensions({
+                    width: chartSize,
+                    height: chartSize,
+                    radius: radius
+                });
+            }
+        };
+
+        updateDimensions();
+        window.addEventListener('resize', updateDimensions);
+        return () => window.removeEventListener('resize', updateDimensions);
+    }, []);
+
     return (
-        <Card className='bg-transparent border-none'>
-            <CardHeader className="items-center">
-                {/* <CardTitle>Pathology Performance by Hospital Type</CardTitle>
-        <CardDescription>
-          Comparing detection rates across different healthcare facilities
-        </CardDescription> */}
-            </CardHeader>
-            <CardContent className="pb-4">
-                <div className="grid items-center max-w-full grid-cols-2 mx-auto">
+        <Card className="w-full bg-transparent border-none">
+            <CardContent className="p-4">
+                <div className="flex flex-row items-center justify-center w-full gap-8 md:flex-row sm:flex-col" id="chart-container">
                     {/* Radar chart section */}
-                    <div className=" max-h-[400px]">
+                    <div className="flex justify-center">
                         <RadarChart
-                            outerRadius={200}
-                            width={500}
-                            height={500}
+                            outerRadius={dimensions.radius}
+                            width={dimensions.width}
+                            height={dimensions.height}
                             data={radarData}
                             className="mx-auto"
                         >
@@ -68,29 +88,25 @@ export default function PathologyRadarChart() {
                                 />
                             ))}
                             <Tooltip content={<CustomTooltip />} />
-                            {/* <Legend /> */}
                         </RadarChart>
                     </div>
 
                     {/* Legend section */}
-                    <div className="flex flex-col justify-between pl-4">
-                        {Object.keys(colors).map((key) => (
-                            <div key={key} className="flex items-center gap-2">
-                                <div
-                                    className="w-4 h-4"
-                                    style={{ backgroundColor: colors[key] }}
-                                />
-                                <span className="text-sm text-white">{key}</span>
-                            </div>
-                        ))}
-                    </div>
+                    <div className="flex flex-col max-w-xs gap-4 p-4">
+      {Object.entries(colors).map(([key, color]) => (
+        <div key={key} className="flex items-center gap-2">
+          <div
+            className="flex-shrink-0 w-4 h-4 rounded"
+            style={{ backgroundColor: color }}
+          />
+          <span className="text-sm text-white whitespace-normal">{key}</span>
+        </div>
+      ))}
+    </div>
                 </div>
             </CardContent>
-            {/* <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 leading-none text-muted-foreground">
-          Pathology Detection Rates (0-1 scale)
-        </div>
-      </CardFooter> */}
         </Card>
     );
-}
+};
+
+export default ResponsiveRadarChart;
